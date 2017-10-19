@@ -1,4 +1,6 @@
 #Super trunfo generator
 
-#Agora em springboot
-#com SpringSecurity
+#Springboot
+#SpringSecurity
+#Maven
+#PostgreSQL
