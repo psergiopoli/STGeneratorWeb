@@ -1,6 +1,10 @@
-#Super trunfo generator
+﻿###Super trunfo generator
+
 
 #Springboot
+
 #SpringSecurity
+
 #Maven
+
 #PostgreSQL
