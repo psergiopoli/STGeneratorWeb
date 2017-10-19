@@ -1,6 +1,6 @@
 localhost:8080/sign-in
 { "name":"Paulo",
   "email":"psergiopoli@gmail.com",
-  "password":"h4ck3rlnx",
+  "password":"senha",
   "favoriteMeme":"vin diesel"
 }
