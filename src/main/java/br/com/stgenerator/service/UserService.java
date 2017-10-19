@@ -11,28 +11,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.stgenerator.models.Person;
-import br.com.stgenerator.repository.PersonRepository;
+import br.com.stgenerator.models.User;
+import br.com.stgenerator.repository.UserRepository;
 
 @Service
-public class PersonService implements UserDetailsService{
+public class UserService implements UserDetailsService{
 
-	PersonRepository pr;
+	UserRepository pr;
 	
 	@Autowired
-	public PersonService(PersonRepository pr) {
+	public UserService(UserRepository pr) {
 		this.pr = pr;
 	}
 	
-	public Person createUser(Person person){
-		
-		return null;
+	public void createUser(User user){
+		pr.save(user);
 	}
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person user = pr.findByName(username);
+        User user = pr.findByEmail(username);
 
         if(user == null) {
             throw new UsernameNotFoundException(String.format("The username %s doesn't exist", username));

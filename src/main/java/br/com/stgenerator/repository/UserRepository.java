@@ -4,12 +4,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.stgenerator.models.Person;
+import br.com.stgenerator.models.User;
 
 @Transactional
 @Repository
-public interface PersonRepository extends CrudRepository<Person, Long>{
+public interface UserRepository extends CrudRepository<User, Long>{
 	
-	public Person findByName(String name);
+	public User findByName(String name);
+	public User findByEmail(String name);
 
 }

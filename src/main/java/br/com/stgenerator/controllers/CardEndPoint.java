@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,8 @@ public class CardEndPoint {
 		else
 			return new ResponseEntity<Page<Card>>(cards,  HttpStatus.OK);
 	}
-	
+
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/card/publish/{cardId}", method = RequestMethod.PATCH)
 	public ResponseEntity<Card> publishCard(@PathVariable(name="cardId") Long cardId){			
 		Card c = cs.publishCard(cardId);
@@ -60,7 +62,9 @@ public class CardEndPoint {
 		else
 			return new ResponseEntity<Card>(HttpStatus.ACCEPTED);
 	}
+
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/card/approve/{cardId}", method = RequestMethod.PATCH)
 	public ResponseEntity<Card> approveCard(@PathVariable(name="cardId") Long cardId){			
 		Card c = cs.approveCard(cardId);

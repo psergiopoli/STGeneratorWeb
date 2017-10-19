@@ -2,6 +2,7 @@ package br.com.stgenerator.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,16 +13,17 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
-@Entity
-public class Person {
+@Entity(name="user_all")
+public class User {
 
 	@Id
-	@SequenceGenerator(name = "PERSON_ID", sequenceName = "PERSON_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_ID")
+	@SequenceGenerator(name = "USER_ALL_ID", sequenceName = "USER_ALL_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ALL_ID")
 	private Long id;
 
 	private String name;
 
+	@Column(unique=true)
 	private String email;
 
 	private String password;
@@ -29,7 +31,7 @@ public class Person {
 	private String favoriteMeme;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JoinTable(name = "user_all_role", joinColumns = @JoinColumn(name = "user_all_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private List<Role> roles;
 
 	public Long getId() {

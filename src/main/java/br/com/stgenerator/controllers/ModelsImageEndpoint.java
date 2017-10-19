@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,25 +21,26 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.stgenerator.util.ModeloCarta;
 
 @RestController
-public class ModelsImageEndpoint extends HttpServlet{
+public class ModelsImageEndpoint{
 
-	private static final long serialVersionUID = 5621941094281331648L;
-
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value = "/model/{model}", method = RequestMethod.GET,produces = MediaType.IMAGE_JPEG_VALUE)
-	public void getImage(@PathVariable(value = "model") String model,HttpServletRequest req, HttpServletResponse resp)
+	@RequestMapping(value = "/model/{model}", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getImage(@PathVariable(value = "model") String model,HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		List<ModeloCarta> modelos = Arrays.asList(ModeloCarta.values());
+		final HttpHeaders headers = new HttpHeaders();
 		
 		for (ModeloCarta modeloCarta : modelos) {
 			if(model.equals(new Integer(modeloCarta.numero).toString())){
-				resp.setContentType("image/"+modeloCarta.tipoImagem);
-				resp.getOutputStream().write(IOUtils.toByteArray(modeloCarta.lerImagem()));
-			}
-		}	
+				if(modeloCarta.tipoImagem.equals("jpg"))
+					headers.setContentType(MediaType.IMAGE_JPEG);
+				else if(modeloCarta.tipoImagem.equals("png"))
+					headers.setContentType(MediaType.IMAGE_PNG);
+				return new ResponseEntity<byte[]>(IOUtils.toByteArray(modeloCarta.lerImagem()),headers,HttpStatus.OK);
+			};
+		}
+		return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 	}
 	
-	@Secured("ROLE_GUEST")
 	@RequestMapping(value = "/model/list", method = RequestMethod.GET)
 	public List<ModeloCarta> getModels(HttpServletRequest req, HttpServletResponse resp) {		
 		List<ModeloCarta> modelos = Arrays.asList(ModeloCarta.values());
