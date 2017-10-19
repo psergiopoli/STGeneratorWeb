@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ public class ModelsImageEndpoint extends HttpServlet{
 
 	private static final long serialVersionUID = 5621941094281331648L;
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/model/{model}", method = RequestMethod.GET,produces = MediaType.IMAGE_JPEG_VALUE)
 	public void getImage(@PathVariable(value = "model") String model,HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -36,6 +38,7 @@ public class ModelsImageEndpoint extends HttpServlet{
 		}	
 	}
 	
+	@Secured("ROLE_GUEST")
 	@RequestMapping(value = "/model/list", method = RequestMethod.GET)
 	public List<ModeloCarta> getModels(HttpServletRequest req, HttpServletResponse resp) {		
 		List<ModeloCarta> modelos = Arrays.asList(ModeloCarta.values());
