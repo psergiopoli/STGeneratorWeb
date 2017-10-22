@@ -2,11 +2,15 @@ package br.com.stgenerator.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.ServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,7 @@ import br.com.stgenerator.models.CreateCardForm;
 import br.com.stgenerator.service.CardService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class CardEndPoint {
 	
 	CardService cs;
@@ -36,7 +41,7 @@ public class CardEndPoint {
 	}
 	
 	@RequestMapping(value = "/card/{cardId}", method = RequestMethod.GET)
-	public ResponseEntity<Card> getCardById(@PathVariable(name="cardId") Long cardId) throws IOException{			
+	public ResponseEntity<Card> getCardById(@PathVariable(name="cardId") Long cardId, ServletResponse res) throws IOException{	
 		Card c = cs.getCardById(cardId);
 		if(c==null)		
 			return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
