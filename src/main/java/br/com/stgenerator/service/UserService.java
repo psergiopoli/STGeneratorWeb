@@ -17,24 +17,33 @@ import br.com.stgenerator.repository.UserRepository;
 @Service
 public class UserService implements UserDetailsService{
 
-	UserRepository pr;
+	UserRepository userRepository;
 	
 	@Autowired
-	public UserService(UserRepository pr) {
-		this.pr = pr;
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 	
 	public void createUser(User user){
-		pr.save(user);
+		userRepository.save(user);
+	}
+	
+	public User findUserByEmail(String email){
+		 User user = userRepository.findByEmail(email);
+		 return user;		
+	}
+	
+	public List<User> getAllUsers(){
+		List<User> users = userRepository.getAllUsers();
+		return users;
 	}
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = pr.findByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
 
         if(user == null) {
-            throw new UsernameNotFoundException(String.format("The username %s doesn't exist", username));
+            throw new UsernameNotFoundException(String.format("The username %s doesn't exist", email));
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -42,7 +51,7 @@ public class UserService implements UserDetailsService{
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         });
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 
         return userDetails;
     }
