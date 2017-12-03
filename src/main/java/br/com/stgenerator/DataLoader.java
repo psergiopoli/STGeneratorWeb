@@ -49,7 +49,7 @@ public class DataLoader implements ApplicationRunner {
 	    	roles.add(role2);
 	    	
 	        User user = new User();
-	        user.setPassword(bCryptPasswordEncoder.encode("h4ck3rlnx"));
+	        user.setPassword(bCryptPasswordEncoder.encode("123456"));
 	        user.setEmail("psergiopoli@gmail.com");
 	        user.setRoles(roles);
 	        user.setName("Paulo Sergio Jr");

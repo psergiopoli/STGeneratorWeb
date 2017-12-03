@@ -16,7 +16,9 @@ import br.com.stgenerator.models.Card;
 public interface CardRepository extends CrudRepository<Card, Long>{	
 	
 	public Card findCardById(Long id);
-	public Page<Card> findAll(Pageable pageRequest);
+	
+	@Query("FROM Card c Where c.aprovado=:aprovado AND c.publico=:publico")
+	public Page<Card> findAllCards(Pageable pageRequest,@Param(value = "aprovado") Boolean aprovado,@Param(value = "publico") Boolean publico);
 	
 	@Modifying
 	@Query("UPDATE Card c SET c.aprovado = TRUE WHERE c.id=:id")
