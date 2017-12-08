@@ -30,7 +30,7 @@ public class ModelsImageEndpoint{
 		final HttpHeaders headers = new HttpHeaders();
 		
 		for (ModeloCarta modeloCarta : modelos) {
-			if(model.equals(new Integer(modeloCarta.numero).toString())){
+			if(model.equals(modeloCarta.name())){
 				if(modeloCarta.tipoImagem.equals("jpg"))
 					headers.setContentType(MediaType.IMAGE_JPEG);
 				else if(modeloCarta.tipoImagem.equals("png"))

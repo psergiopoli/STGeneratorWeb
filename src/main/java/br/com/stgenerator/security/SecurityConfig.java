@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/cardImage/*")
+		web.ignoring().antMatchers("/cardImage/*")
+		.and().ignoring().antMatchers("/cardThumb/*")
         .and().ignoring().antMatchers("/model/*")
         .and().ignoring().antMatchers("/card/*")
         .and().ignoring().antMatchers("/card")
