@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -45,11 +46,15 @@ public class CardUtil {
 		List<ModeloCarta> modelos = Arrays.asList(ModeloCarta.values());
 		
 		for (ModeloCarta modeloCarta : modelos) {
-			if(id.equals(new Integer(modeloCarta.numero).toString())){
+			if(id.equals(modeloCarta.name())){
 				return modeloCarta;
 			}
 		}
 		return modelos.get(0);
+	}
+
+	public static String generateString() {
+		return UUID.randomUUID().toString();
 	}
 
 }

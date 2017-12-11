@@ -41,8 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		web.ignoring().antMatchers("/cardImage/*")
 		.and().ignoring().antMatchers("/cardThumb/*")
         .and().ignoring().antMatchers("/model/*")
-        .and().ignoring().antMatchers("/card/*")
-        .and().ignoring().antMatchers("/card")
+        .and().ignoring().antMatchers("/card/**")
         .and().ignoring().antMatchers("/sign-in");
     }
 	

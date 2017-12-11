@@ -27,9 +27,16 @@ public class CardService {
 	public CardService(CardRepository cr) {
 		this.cr = cr;
 	}
-	
+
 	public Card getCardById(Long id){
 		Card c = cr.findCardById(id);
+		if(c!=null)
+			c.setUri("/cardImage/"+c.getId());
+		return c;
+	}
+
+	public Card getCardByUUID(String uuid){
+		Card c = cr.findCardBySecurityHash(uuid);
 		if(c!=null)
 			c.setUri("/cardImage/"+c.getId());
 		return c;
@@ -58,7 +65,8 @@ public class CardService {
 		i.setNumeracao("black", form.getNumeroCarta());
 		
 		Card c = new Card();
-		
+		c.setSecurityHash(form.getUuid());
+
 		BufferedImage imgp = CardUtil.Base64ToImage(form.getImagem());
 		i.setImagemPrincipal(imgp);
 		i.criarThumb();

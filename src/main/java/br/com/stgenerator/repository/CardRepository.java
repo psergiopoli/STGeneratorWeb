@@ -13,9 +13,11 @@ import br.com.stgenerator.models.Card;
 
 @Transactional
 @Repository
-public interface CardRepository extends CrudRepository<Card, Long>{	
-	
+public interface CardRepository extends CrudRepository<Card, Long>{
+
 	public Card findCardById(Long id);
+
+	public Card findCardBySecurityHash(String id);
 	
 	@Query("FROM Card c Where c.aprovado=:aprovado AND c.publico=:publico")
 	public Page<Card> findAllCards(Pageable pageRequest,@Param(value = "aprovado") Boolean aprovado,@Param(value = "publico") Boolean publico);

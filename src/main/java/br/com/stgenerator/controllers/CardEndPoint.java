@@ -36,11 +36,20 @@ public class CardEndPoint {
 			Card c = cs.createCard(form);		
 			return new ResponseEntity<Card>(c,  HttpStatus.CREATED);
 	}
-	
+
 	@RequestMapping(value = "/card/{cardId}", method = RequestMethod.GET)
-	public ResponseEntity<Card> getCardById(@PathVariable(name="cardId") Long cardId, ServletResponse res) throws IOException{	
+	public ResponseEntity<Card> getCardById(@PathVariable(name="cardId") Long cardId, ServletResponse res) throws IOException{
 		Card c = cs.getCardById(cardId);
-		if(c==null)		
+		if(c==null || !c.isPublico() || !c.isAprovado())
+			return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<Card>(c,  HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/card/hash/{uuid}", method = RequestMethod.GET)
+	public ResponseEntity<Card> getCardByUUID(@PathVariable(name="uuid") String uuid) throws IOException{
+		Card c = cs.getCardByUUID(uuid);
+		if(c==null)
 			return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
 		else
 			return new ResponseEntity<Card>(c,  HttpStatus.OK);

@@ -21,6 +21,16 @@ public class CreateCardForm {
 	
 	private String numeroCarta;
 
+	private String uuid;
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public boolean isPublico() {
 		return publico;
 	}
@@ -140,5 +150,4 @@ public class CreateCardForm {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
-
 }

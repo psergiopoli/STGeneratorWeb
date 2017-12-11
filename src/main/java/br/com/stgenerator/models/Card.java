@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
+import br.com.stgenerator.util.CardUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -21,7 +22,7 @@ public class Card {
 
 	@Id
 	@SequenceGenerator(name = "CARTA_ID", sequenceName = "CARTA_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARTA_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARTA_ID")
 	private Long id;
 
 	private String Titulo;
@@ -33,7 +34,10 @@ public class Card {
 	private boolean publico;
 	
 	private boolean aprovado;
-	
+
+	@JsonIgnore
+	private String securityHash;
+
 	@Transient
 	private String uri;
 	
@@ -46,12 +50,20 @@ public class Card {
 	@Column(columnDefinition = "BYTEA")
 	@Basic(fetch=FetchType.LAZY)
 	private byte[] thumb;
-	
-	 @PrePersist
-	 void createdAt() {
-		 this.dataCriacao = new Date();
-	 }
-	
+
+	@PrePersist
+	void createdAt() {
+		this.dataCriacao = new Date();
+	}
+
+	public String getSecurityHash() {
+		return securityHash;
+	}
+
+	public void setSecurityHash(String securityHash) {
+		this.securityHash = securityHash;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -127,5 +139,4 @@ public class Card {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
-	
 }
