@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletResponse;
 
+import br.com.stgenerator.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -63,6 +64,13 @@ public class CardEndPoint {
 		else
 			return new ResponseEntity<Page<Card>>(cards,  HttpStatus.OK);
 	}
+
+    @RequestMapping(value = "/card/{id}", method = RequestMethod.PATCH)
+	public ResponseEntity<ResponseUtil> countViewToCard(@PathVariable(name = "id") Long cardId){
+	    cs.countViewToCard(cardId);
+	    //TODO NAO DEIXAR MESMO IP FAZER MAIS DE UMA CONTAGEM
+        return new ResponseEntity<ResponseUtil>(new ResponseUtil("ok"), HttpStatus.CREATED);
+    };
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/card/publish/{cardId}", method = RequestMethod.PATCH)

@@ -119,5 +119,8 @@ public class CardService {
 		}
 		return c;
 	}
-	
+
+    public void countViewToCard(Long cardId) {
+		cr.countView(cardId);
+    }
 }

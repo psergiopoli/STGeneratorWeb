@@ -37,4 +37,8 @@ public interface CardRepository extends CrudRepository<Card, Long>{
 	@Modifying
 	@Query("UPDATE Card c SET c.publico = FALSE WHERE c.id=:id")
 	public void unpublishCard(@Param(value = "id") Long id);
+
+	@Modifying
+	@Query("UPDATE Card c set c.views = (c.views + 1) WHERE c.id=:id")
+    void countView(@Param(value = "id")Long cardId);
 }
