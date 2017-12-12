@@ -1,7 +1,7 @@
 package br.com.stgenerator.security;
 
+import br.com.stgenerator.service.UserService;
 import io.jsonwebtoken.Jwts;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import br.com.stgenerator.service.UserService;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,10 +21,10 @@ import java.io.IOException;
 
 @Component
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-	
-	@Autowired
-	private UserService userService;
-	
+
+    @Autowired
+    private UserService userService;
+
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
@@ -50,27 +48,27 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
-        try{
-	        if (token != null) {
-	            String user = Jwts.parser()
-	                    .setSigningKey(SecurityConstants.SECRET.getBytes())
-	                    .parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
-	                    .getBody()
-	                    .getSubject();	
-	            if (user != null) {
-	                if(userService==null){
-	                    ServletContext servletContext = request.getServletContext();
-	                    WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-	                    userService = webApplicationContext.getBean(UserService.class);
-	                }
-	            	UserDetails userDetails = userService.loadUserByUsername(user);
-	                return new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
-	            }
-	            return null;
-	        }
-        }catch(Exception e){
-        	//log error ?lançar exceção ?
-        	return null;
+        try {
+            if (token != null) {
+                String user = Jwts.parser()
+                        .setSigningKey(SecurityConstants.SECRET.getBytes())
+                        .parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
+                        .getBody()
+                        .getSubject();
+                if (user != null) {
+                    if (userService == null) {
+                        ServletContext servletContext = request.getServletContext();
+                        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+                        userService = webApplicationContext.getBean(UserService.class);
+                    }
+                    UserDetails userDetails = userService.loadUserByUsername(user);
+                    return new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
+                }
+                return null;
+            }
+        } catch (Exception e) {
+            //log error ?lançar exceção ?
+            return null;
         }
         return null;
     }

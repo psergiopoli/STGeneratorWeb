@@ -1,142 +1,131 @@
 package br.com.stgenerator.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Transient;
-
-import br.com.stgenerator.util.CardUtil;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Card {
 
-	@Id
-	@SequenceGenerator(name = "CARTA_ID", sequenceName = "CARTA_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARTA_ID")
-	private Long id;
+    @Id
+    @SequenceGenerator(name = "CARTA_ID", sequenceName = "CARTA_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARTA_ID")
+    private Long id;
 
-	private String Titulo;
-	
-	private Integer views;
-	
-	private Date dataCriacao;
-	
-	private boolean publico;
-	
-	private boolean aprovado;
+    private String Titulo;
 
-	@JsonIgnore
-	private String securityHash;
+    private Integer views;
 
-	@Transient
-	private String uri;
-	
-	@JsonIgnore
-	@Column(columnDefinition = "BYTEA")
-	@Basic(fetch=FetchType.LAZY)
-	private byte[] imagem;
-		
-	@JsonIgnore
-	@Column(columnDefinition = "BYTEA")
-	@Basic(fetch=FetchType.LAZY)
-	private byte[] thumb;
+    private Date dataCriacao;
 
-	@PrePersist
-	void createdAt() {
-		this.dataCriacao = new Date();
-	}
+    private boolean publico;
 
-	public String getSecurityHash() {
-		return securityHash;
-	}
+    private boolean aprovado;
 
-	public void setSecurityHash(String securityHash) {
-		this.securityHash = securityHash;
-	}
+    @JsonIgnore
+    private String securityHash;
 
-	public Long getId() {
-		return id;
-	}
+    @Transient
+    private String uri;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @JsonIgnore
+    @Column(columnDefinition = "BYTEA")
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] imagem;
 
-	public String getTitulo() {
-		return Titulo;
-	}
+    @JsonIgnore
+    @Column(columnDefinition = "BYTEA")
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] thumb;
 
-	public void setTitulo(String titulo) {
-		Titulo = titulo;
-	}
+    @PrePersist
+    void createdAt() {
+        this.dataCriacao = new Date();
+    }
 
-	public Integer getViews() {
-		return views;
-	}
+    public String getSecurityHash() {
+        return securityHash;
+    }
 
-	public void setViews(Integer views) {
-		this.views = views;
-	}
+    public void setSecurityHash(String securityHash) {
+        this.securityHash = securityHash;
+    }
 
-	public byte[] getImagem() {
-		return imagem;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setImagem(byte[] imagem) {
-		this.imagem = imagem;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDataCriacao(Timestamp dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
+    public String getTitulo() {
+        return Titulo;
+    }
 
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
+    public void setTitulo(String titulo) {
+        Titulo = titulo;
+    }
 
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
+    public Integer getViews() {
+        return views;
+    }
 
-	public byte[] getThumb() {
-		return thumb;
-	}
+    public void setViews(Integer views) {
+        this.views = views;
+    }
 
-	public void setThumb(byte[] thumb) {
-		this.thumb = thumb;
-	}
+    public byte[] getImagem() {
+        return imagem;
+    }
 
-	public boolean isPublico() {
-		return publico;
-	}
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
 
-	public void setPublico(boolean publico) {
-		this.publico = publico;
-	}
+    public void setDataCriacao(Timestamp dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
-	public boolean isAprovado() {
-		return aprovado;
-	}
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
 
-	public void setAprovado(boolean aprovado) {
-		this.aprovado = aprovado;
-	}
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
-	public String getUri() {
-		return uri;
-	}
+    public byte[] getThumb() {
+        return thumb;
+    }
 
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+    public void setThumb(byte[] thumb) {
+        this.thumb = thumb;
+    }
+
+    public boolean isPublico() {
+        return publico;
+    }
+
+    public void setPublico(boolean publico) {
+        this.publico = publico;
+    }
+
+    public boolean isAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(boolean aprovado) {
+        this.aprovado = aprovado;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 }

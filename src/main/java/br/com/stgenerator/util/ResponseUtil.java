@@ -1,19 +1,19 @@
 package br.com.stgenerator.util;
 
 public class ResponseUtil {
-	
-	public ResponseUtil(String message) {
-		this.message = message;
-	}
-	
-	private String message;
 
-	public String getMessage() {
-		return message;
-	}
+    private String message;
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public ResponseUtil(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 }

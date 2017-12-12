@@ -1,6 +1,7 @@
 localhost:8080/sign-in
-{ "name":"Paulo",
-  "email":"psergiopoli@gmail.com",
-  "password":"senha",
-  "favoriteMeme":"vin diesel"
+{
+"name": "Paulo",
+"email": "psergiopoli@gmail.com",
+"password": "senha",
+"favoriteMeme": "vin diesel"
 }

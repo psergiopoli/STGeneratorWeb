@@ -1,7 +1,5 @@
 package br.com.stgenerator;
 
-import java.util.Arrays;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,37 +11,37 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 @Controller
-public class Boot extends WebMvcConfigurerAdapter
-{
+public class Boot extends WebMvcConfigurerAdapter {
 
-   public static void main(String[] args)
-   {
-      SpringApplication.run(Boot.class, args);
-   }
+    public static void main(String[] args) {
+        SpringApplication.run(Boot.class, args);
+    }
 
-   @Bean
-   public BCryptPasswordEncoder bCryptPasswordEncoder() {
-       return new BCryptPasswordEncoder();
-   }
-   
-   @Override
-   public void addCorsMappings(CorsRegistry registry) {
-       registry.addMapping("/**")
-               .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-   }
-   
-   @Bean
-   public CorsConfigurationSource corsConfigurationSource() {
-       final CorsConfiguration configuration = new CorsConfiguration();
-       configuration.setAllowedOrigins(Arrays.asList("*"));
-       configuration.setAllowedMethods(Arrays.asList("HEAD",
-               "GET", "POST", "PUT", "DELETE", "PATCH"));
-       configuration.setAllowCredentials(true);
-       configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-       final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-       source.registerCorsConfiguration("/**", configuration);
-       return source;
-   }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD",
+                "GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
