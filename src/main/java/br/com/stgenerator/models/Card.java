@@ -14,7 +14,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARTA_ID")
     private Long id;
 
-    private String Titulo;
+    private String titulo;
 
     private Integer views;
 
@@ -62,11 +62,11 @@ public class Card {
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
     public void setTitulo(String titulo) {
-        Titulo = titulo;
+        titulo = titulo;
     }
 
     public Integer getViews() {
