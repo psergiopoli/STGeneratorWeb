@@ -58,6 +58,16 @@ public class CardEndPoint {
             return new ResponseEntity<Page<Card>>(cards, HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/card/admin", method = RequestMethod.GET)
+    public ResponseEntity<Page<Card>> getCardsPaginatedAdmin(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size) throws IOException {
+        Page<Card> cards = cs.getCardsByViewsAdmin(page, size);
+        if (cards == null)
+            return new ResponseEntity<Page<Card>>(HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<Page<Card>>(cards, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/card/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<ResponseUtil> countViewToCard(@PathVariable(name = "id") Long cardId) {
         cs.countViewToCard(cardId);

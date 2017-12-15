@@ -21,6 +21,9 @@ public interface CardRepository extends CrudRepository<Card, Long> {
     @Query("FROM Card c Where c.aprovado=:aprovado AND c.publico=:publico")
     public Page<Card> findAllCards(Pageable pageRequest, @Param(value = "aprovado") Boolean aprovado, @Param(value = "publico") Boolean publico);
 
+    @Query("FROM Card c")
+    public Page<Card> findAllCardsAdmin(Pageable pageRequest);
+
     @Modifying
     @Query("UPDATE Card c SET c.aprovado = TRUE WHERE c.id=:id")
     public void aprroveCard(@Param(value = "id") Long id);

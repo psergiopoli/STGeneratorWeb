@@ -47,7 +47,7 @@ public class CardService {
 
     public Page<Card> getCardsByViewsAdmin(Integer page, Integer size) {
         PageRequest pr = new PageRequest(page, size, Direction.DESC, "views");
-        return cr.findAllCards(pr, false, false);
+        return cr.findAllCardsAdmin(pr);
     }
 
     public Card createCard(CreateCardForm form) throws IOException {
