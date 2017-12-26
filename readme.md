@@ -20,6 +20,9 @@ docker run -d --name boot-stg --link postgres-stg -p 8080:8080 boot/stgenerator
 docker container start <name>
 docker container stop <name>
 
+**removes imagens de builds antigos
+docker rmi $(docker images -qa -f 'dangling=true')
+
 **remover containers parados
 docker ps -a -f status=exited
 docker rm $(docker ps -a -f status=exited -q)
