@@ -82,9 +82,9 @@ public class CardEndPoint {
     public ResponseEntity<Card> publishCard(@PathVariable(name = "cardId") Long cardId) {
         Card c = cs.publishCard(cardId);
         if (c == null)
-            return new ResponseEntity<Card>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<Card>(c,HttpStatus.NOT_ACCEPTABLE);
         else
-            return new ResponseEntity<Card>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<Card>(c,HttpStatus.ACCEPTED);
     }
 
 
@@ -93,9 +93,9 @@ public class CardEndPoint {
     public ResponseEntity<Card> approveCard(@PathVariable(name = "cardId") Long cardId) {
         Card c = cs.approveCard(cardId);
         if (c == null)
-            return new ResponseEntity<Card>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<Card>(c,HttpStatus.NOT_ACCEPTABLE);
         else
-            return new ResponseEntity<Card>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<Card>(c,HttpStatus.ACCEPTED);
     }
 
 }
